@@ -18,7 +18,6 @@ class Database {
         try {
             self::$cnx = new \PDO($dsn, $username, $password);
             self::$cnx->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-            echo 'Successsssssssssss!';
             return self::$cnx;
         } catch (\PDOException $e) {
             die("Connection failed: " . $e->getMessage());
@@ -26,6 +25,4 @@ class Database {
     }
 }
 
-$db = new Database();
-$db->connect();
 ?>
