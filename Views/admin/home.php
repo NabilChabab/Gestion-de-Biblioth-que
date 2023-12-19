@@ -1,4 +1,9 @@
-
+<?php
+require '../../vendor/autoload.php';
+use MyApp\Models\User;
+$userModel = new User('', '', '', '', '', '');
+$users = $userModel->getAllUsers();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -47,7 +52,7 @@
                 </li>
 
                 <li>
-                    <a href="logout.php">
+                    <a href="../auth/login.php">
                         <span class="icon">
                             <ion-icon name="log-out-outline"></ion-icon>
                         </span>
@@ -59,7 +64,7 @@
 
         <!-- ========================= Main ==================== -->
         <div class="main active">
-        <div class="topbar">
+            <div class="topbar">
                 <div class="toggle">
                     <ion-icon name="menu-outline"></ion-icon>
                 </div>
@@ -73,16 +78,20 @@
 
                 <div class="admin">
                     <div class="user">
-                        <img src="../assets/images/me.jpg" alt="">
+                        <img src="../../assets/images/me.jpg" alt="">
                     </div>
                     <div class="name">
-                        <p><?php echo isset($_COOKIE['user_name']) ? $_COOKIE['user_name'] : ''; ?></p>
-                        <p><?php echo isset($_COOKIE['user_role']) ? $_COOKIE['user_role'] : ''; ?></p>
+                        <p>
+                            <?php echo isset($_COOKIE['user_name']) ? $_COOKIE['user_name'] : ''; ?>
+                        </p>
+                        <p>
+                            <?php echo isset($_COOKIE['user_role']) ? $_COOKIE['user_role'] : ''; ?>
+                        </p>
                     </div>
                 </div>
             </div>
 
-            
+
             <div class="cardBox">
                 <div class="card">
                     <div>
@@ -124,7 +133,7 @@
                     </div>
 
                     <div class="iconBx">
-                    <ion-icon name="people-outline"></ion-icon>
+                        <ion-icon name="people-outline"></ion-icon>
                     </div>
                 </div>
             </div>
@@ -145,41 +154,31 @@
                                 <td>FirstName</td>
                                 <td>LastName</td>
                                 <td>Email</td>
-                                <td>Gender</td>
-                                <td>Date</td>
+                                <td>Phone</td>
+                                <td>Type</td>
                                 <td>Actions</td>
-                              
+
                             </tr>
                         </thead>
 
                         <tbody id="userTableBody">
-                            <tr>
-                                <td>
-                                </td>
-                                <td><img src="" alt="" srcset="" style="max-width:45px;border-radius:50%;"></td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-
-                                    <a href="edit.php?id=' . base64_encode($row['id']) . '"
-                                        style="color:black;font-size:20px;margin-right:20px"><ion-icon
-                                            name="pencil-outline"></ion-icon></a>
-                                    <a href="?id=' . base64_encode($row['id']) . '&delete"
-                                        style="color:red;font-size:20px;"><ion-icon
-                                            name="close-circle-outline"></ion-icon></a>
-
-                                </td>
-                            </tr>
-
-
+                            <?php
+                            foreach ($users as $user) {
+                                echo '<tr>';
+                                echo '<td>' . htmlspecialchars($user['id']) . '</td>';
+                                echo '<td><img src="' . htmlspecialchars($user['image']) . '" alt="Profile" style="max-width:45px;border-radius:50%;"></td>';
+                                echo '<td>' . htmlspecialchars($user['firstname']) . '</td>';
+                                echo '<td>' . htmlspecialchars($user['lastname']) . '</td>';
+                                echo '<td>' . htmlspecialchars($user['email']) . '</td>';
+                                echo '<td>' . htmlspecialchars($user['phone']) . '</td>';
+                                echo '<td>' . htmlspecialchars($user['name']) . '</td>';
+                                echo '<td>';
+                                echo '<a href="edit.php?id=' . base64_encode($user['id']) . '" style="color:black;font-size:20px;margin-right:20px"><ion-icon name="pencil-outline"></ion-icon></a>';
+                                echo '<a href="?id=' . base64_encode($user['id']) . '&delete" style="color:red;font-size:20px;"><ion-icon name="close-circle-outline"></ion-icon></a>';
+                                echo '</td>';
+                                echo '</tr>';
+                            }
+                            ?>
                         </tbody>
                     </table>
                 </div>
@@ -194,8 +193,8 @@
     </div>
 
     <!-- =========== Scripts =========  -->
-    <script src="../assets/js/main.js"></script>
-    
+    <script src="../../assets/js/main.js"></script>
+
 
 
 

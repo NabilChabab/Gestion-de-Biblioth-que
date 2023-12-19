@@ -123,9 +123,9 @@
 
                     <div class="card1 bg-glass">
                         <div class="card-body px-4 py-5 px-md-5">
-                        <form action="../app/Controllers/handelform.php" enctype="multipart/form-data" method="POST">
+                        <form action="../../app/Controllers/handelform.php" enctype="multipart/form-data" method="POST">
                                 <div class="card">
-                                    <img src="../assets/images/me.jpg" alt="image" id="image">
+                                    <img src="../../assets/images/profilephoto.jfif" alt="image" id="image">
                                     <label for="input-file">Choose Image</label>
                                     <input type="file" accept="image/jpg, image/png, image/jpeg" name="image" style="background-color: transparent;" id="input-file">
                                 </div>
@@ -196,8 +196,8 @@
         </div>
     </section>
 
-    <script src="../assets/js/login.js"></script>
-    <script src="../assets/js/main.js"></script>
+    <script src="../../assets/js/login.js"></script>
+    <script src="../../assets/js/main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>

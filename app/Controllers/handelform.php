@@ -30,10 +30,10 @@ if (isset($_POST['login'])) {
         $role = $_SESSION['role'];
         switch ($role) {
             case 1:
-                header('Location:../../Views/home.php?welcomeadmin');
+                header('Location:../../Views/admin/home.php?welcomeadmin');
                 exit();
             case 2:
-                header('Location:../../Views/home.php?welcomeuser');
+                header('Location:../../Views/users/index.php?welcomeuser');
                 exit();
             default:
                 echo "Unknown role";

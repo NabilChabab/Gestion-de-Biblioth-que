@@ -28,10 +28,10 @@ class UserController
     {
         switch ($role) {
             case 1:
-                header('location:../../Views/login.php?welcomeadmin');
+                header('location:../../Views/auth/login.php?welcomeadmin');
                 exit();
             case 2:
-                header('location:../../Views/login.php?welcomeuser');
+                header('location:../../Views/auth/login.php?welcomeuser');
                 exit();
             default:
                 echo 'Unknown role';

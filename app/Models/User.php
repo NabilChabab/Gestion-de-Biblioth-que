@@ -33,6 +33,7 @@ class User
         $phone = $this->getPhone();
         $password = $this->getPassword();
         $image = $this->getImage();
+      
 
         $firstnameError = $this->validateFirstName($firstname);
         $lastnameError = $this->validateLastName($lastname);
@@ -40,6 +41,9 @@ class User
         $phoneError = $this->validatePhone($phone);
         $passwordError = $this->validatePassword($password);
         $imageError = $this->validateImage($image);
+
+        $image = $this->getImage();
+
 
         if (!empty($firstnameError) || !empty($lastnameError) || !empty($passwordError) || !empty($emailError) || !empty($phoneError) || !empty($imageError)) {
             echo "Validation error: $firstnameError $lastnameError $emailError $phoneError";
@@ -123,17 +127,20 @@ class User
         return empty($phone) ? 'Phone Number is required' : '';
     }
     private function validateImage($image){
+
+      
+
         if (empty($image['name'])) {
             return 'Image is required';
         }
     
         $file_name = $image['name'];
         $file_temp = $image['tmp_name'];
-        $upload_path = "../../assets/images/";
-        $upload_image = $upload_path . $file_name;
+        $upload_image = "../../assets/images/" . $file_name;
+
     
         if (move_uploaded_file($file_temp, $upload_image)) {
-            return $this->setImage($upload_image);
+            $this->setImage($upload_image);
         } else {
             return 'Error uploading file.';
         }
