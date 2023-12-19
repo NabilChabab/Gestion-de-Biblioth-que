@@ -1,8 +1,9 @@
 <?php
 require '../../vendor/autoload.php';
-use MyApp\Models\User;
-$userModel = new User('','', '', '', '', '', '');
-$users = $userModel->getAllUsers();
+use MyApp\Models\Book;
+
+$bookModel = new Book();
+$books = $bookModel->getAllBooks();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -42,8 +43,8 @@ $users = $userModel->getAllUsers();
                     </a>
                 </li>
 
-                <li class="active">
-                    <a href="#">
+                <li>
+                    <a href="home.php">
                         <span class="icon">
                             <ion-icon name="home-outline"></ion-icon>
                         </span>
@@ -51,8 +52,8 @@ $users = $userModel->getAllUsers();
                     </a>
                 </li>
 
-                <li>
-                    <a href="books.php">
+                <li class="active">
+                    <a href="#">
                         <span class="icon">
                             <ion-icon name="book-outline"></ion-icon>
                         </span>
@@ -161,43 +162,45 @@ $users = $userModel->getAllUsers();
                 <div class="recentOrders">
                     <div class="cardHeader">
                         <h2>Recent Reservation</h2>
-                        <a href="add_students.php" class="btn">View All</a>
+                        <a href="add.php" class="btn">Add New Book</a>
                     </div>
 
                     <table id="userTable">
                         <thead>
                             <tr>
-                                <td>ID</td>
-                                <td>Profile</td>
-                                <td>FirstName</td>
-                                <td>LastName</td>
-                                <td>Email</td>
-                                <td>Phone</td>
-                                <td>Type</td>
+                                <td>Cover</td>
+                                <td>Title</td>
+                                <td>Author</td>
+                                <td>Genre</td>
+                                <td>Description</td>
+                                <td>Publication Year</td>
+                                <td>Total Copies</td>
+                                <td>Avilable Copies</td>
                                 <td>Actions</td>
 
                             </tr>
                         </thead>
 
                         <tbody id="userTableBody">
-                            <?php
-                            foreach ($users as $user) {
-                                echo '<tr>';
-                                echo '<td>' . htmlspecialchars($user['id']) . '</td>';
-                                echo '<td><img src="' . htmlspecialchars($user['image']) . '" alt="Profile" style="max-width:45px;border-radius:50%;"></td>';
-                                echo '<td>' . htmlspecialchars($user['firstname']) . '</td>';
-                                echo '<td>' . htmlspecialchars($user['lastname']) . '</td>';
-                                echo '<td>' . htmlspecialchars($user['email']) . '</td>';
-                                echo '<td>' . htmlspecialchars($user['phone']) . '</td>';
-                                echo '<td>' . htmlspecialchars($user['name']) . '</td>';
-                                echo '<td>';
-                                echo '<a href="edit.php?id=' . base64_encode($user['id']) . '" style="color:black;font-size:20px;margin-right:20px"><ion-icon name="pencil-outline"></ion-icon></a>';
-                                echo '<a href="?id=' . base64_encode($user['id']) . '&delete" style="color:red;font-size:20px;"><ion-icon name="close-circle-outline"></ion-icon></a>';
-                                echo '</td>';
-                                echo '</tr>';
-                            }
-                            ?>
-                        </tbody>
+                    <?php
+                    foreach ($books as $book) {
+                        echo '<tr>';
+                        echo '<td><img src="' . htmlspecialchars($book['cover']) . '" alt="Cover" style="max-width:45px;height:45px;border-radius:10%;"></td>';
+                        echo '<td>' . htmlspecialchars($book['title']) . '</td>';
+                        echo '<td>' . htmlspecialchars($book['author']) . '</td>';
+                        echo '<td>' . htmlspecialchars($book['genre']) . '</td>';
+                        echo '<td>' . htmlspecialchars($book['description']) . '</td>';
+                        echo '<td>' . htmlspecialchars($book['publication_year']) . '</td>';
+                        echo '<td>' . htmlspecialchars($book['total_copies']) . '</td>';
+                        echo '<td>' . htmlspecialchars($book['available_copies']) . '</td>';
+                        echo '<td>';
+                        echo '<a href="edit.php?id=' . base64_encode($book['id']) . '" style="color:black;font-size:20px;margin-right:20px"><ion-icon name="pencil-outline"></ion-icon></a>';
+                                echo '<a href="?id=' . base64_encode($book['id']) . '&delete" style="color:red;font-size:20px;"><ion-icon name="close-circle-outline"></ion-icon></a>';
+                        echo '</td>';
+                        echo '</tr>';
+                    }
+                    ?>
+                </tbody>
                     </table>
                 </div>
 

@@ -6,6 +6,7 @@ use PDO;
 use PDOException;
 class User
 {
+    private $id;
     private $firstname;
     private $lastname;
     private $phone;
@@ -14,9 +15,10 @@ class User
     private $image;
     private $conn;
 
-    public function __construct($firstname, $lastname, $phone, $email, $password , $image)
+    public function __construct($id,$firstname, $lastname, $phone, $email, $password , $image)
     {
         $this->conn = Database::connect();
+        $this->setId( $id );
         $this->setFirstName($firstname);
         $this->setLastName($lastname);
         $this->setPhone($phone);
@@ -161,6 +163,25 @@ class User
         }
     }
 
+    public function getReservations()
+    {
+        $userId = $this->getId();
+
+        $query = "SELECT r.*, b.title, u.image AS user_image
+        FROM reservation AS r
+        INNER JOIN book AS b ON r.book_id = b.id
+        INNER JOIN user AS u ON r.user_id = u.id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+
+        if (!$stmt) {
+            echo "Error in query: " . $this->conn->errorInfo()[2];
+            return false;
+        } else {
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+    }
+
     public function getByEmail()
     {
         $email = $this->getEmail();
@@ -247,6 +268,14 @@ class User
 
     public function setImage($image){
         $this->image = $image;
+    }
+
+    public function getId(){
+        return $this->id;
+    }
+
+    public function setId($id){
+        $this->id = $id;
     }
 }
 

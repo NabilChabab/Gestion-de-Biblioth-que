@@ -2,7 +2,7 @@
 require '../../vendor/autoload.php';
 use MyApp\Models\User;
 $userModel = new User('','', '', '', '', '', '');
-$users = $userModel->getAllUsers();
+$users = $userModel->getReservations();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -42,8 +42,8 @@ $users = $userModel->getAllUsers();
                     </a>
                 </li>
 
-                <li class="active">
-                    <a href="#">
+                <li>
+                    <a href="home.php">
                         <span class="icon">
                             <ion-icon name="home-outline"></ion-icon>
                         </span>
@@ -60,8 +60,8 @@ $users = $userModel->getAllUsers();
                     </a>
                 </li>
 
-                <li>
-                    <a href="reservations.php">
+                <li class="active">
+                    <a href="#">
                         <span class="icon">
                             <ion-icon name="book-outline"></ion-icon>
                         </span>
@@ -167,13 +167,12 @@ $users = $userModel->getAllUsers();
                     <table id="userTable">
                         <thead>
                             <tr>
-                                <td>ID</td>
-                                <td>Profile</td>
-                                <td>FirstName</td>
-                                <td>LastName</td>
-                                <td>Email</td>
-                                <td>Phone</td>
-                                <td>Type</td>
+                            <td>User</td>
+                                <td>BookName</td>
+                                <td>Description</td>
+                                <td>Reservation Date</td>
+                                <td>Return Date</td>
+                                <td>Status</td>
                                 <td>Actions</td>
 
                             </tr>
@@ -183,13 +182,12 @@ $users = $userModel->getAllUsers();
                             <?php
                             foreach ($users as $user) {
                                 echo '<tr>';
-                                echo '<td>' . htmlspecialchars($user['id']) . '</td>';
-                                echo '<td><img src="' . htmlspecialchars($user['image']) . '" alt="Profile" style="max-width:45px;border-radius:50%;"></td>';
-                                echo '<td>' . htmlspecialchars($user['firstname']) . '</td>';
-                                echo '<td>' . htmlspecialchars($user['lastname']) . '</td>';
-                                echo '<td>' . htmlspecialchars($user['email']) . '</td>';
-                                echo '<td>' . htmlspecialchars($user['phone']) . '</td>';
-                                echo '<td>' . htmlspecialchars($user['name']) . '</td>';
+                                echo '<td><img src="' . htmlspecialchars($user['user_image']) . '" alt="Profile" style="max-width:45px;border-radius:50%;"></td>';
+                                echo '<td>' . htmlspecialchars($user['title']) . '</td>';
+                                echo '<td>' . htmlspecialchars($user['description']) . '</td>';
+                                echo '<td>' . htmlspecialchars($user['reservation_date']) . '</td>';
+                                echo '<td>' . htmlspecialchars($user['return_date']) . '</td>';
+                                echo '<td>' . htmlspecialchars($user['is_returned']) . '</td>';
                                 echo '<td>';
                                 echo '<a href="edit.php?id=' . base64_encode($user['id']) . '" style="color:black;font-size:20px;margin-right:20px"><ion-icon name="pencil-outline"></ion-icon></a>';
                                 echo '<a href="?id=' . base64_encode($user['id']) . '&delete" style="color:red;font-size:20px;"><ion-icon name="close-circle-outline"></ion-icon></a>';

@@ -3,7 +3,8 @@
 require '../../vendor/autoload.php';
 use MyApp\Models\User;
 use MyApp\Controllers\UserController;
-
+use MyApp\Models\Book;
+use MyApp\Controllers\BookController;
 session_start();
 
 if (isset($_POST['register'])) {
@@ -23,7 +24,7 @@ if (isset($_POST['login'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    $user = new User('','','',$email,$password,'');
+    $user = new User('','','','',$email,$password,'');
 
     if ($user->getByEmail()>0) {
 

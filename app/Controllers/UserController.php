@@ -8,7 +8,7 @@ class UserController
 {
     public function register($firstname, $lastname, $email, $phone, $password, $image)
     {
-        $user = new User($firstname, $lastname, $phone, $email, $password, $image);
+        $user = new User('',$firstname, $lastname, $phone, $email, $password, $image);
         if ($user->createUser()) {
             $this->redirect(2);
         } else {
@@ -18,7 +18,7 @@ class UserController
 
     public function login($email, $password)
     {
-        $user = new User('', '', $email, '', $password, '');
+        $user = new User('','', '', $email, '', $password, '');
         if ($user->getByEmail()) {
             $this->redirect($_SESSION['role']);
         }
