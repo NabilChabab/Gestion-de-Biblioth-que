@@ -4,6 +4,7 @@ use MyApp\Models\Book;
 
 $bookModel = new Book();
 $books = $bookModel->getAllBooks();
+session_start();
 ?>
 
 <!DOCTYPE html>
@@ -43,7 +44,13 @@ $books = $bookModel->getAllBooks();
     <a class="menu-toggle rounded" href="#"><i class="fas fa-bars"></i></a>
     <nav id="sidebar-wrapper">
         <ul class="sidebar-nav">
-            <li class="sidebar-brand"><a href="#page-top">Start Bootstrap</a></li>
+            <li class="sidebar-brand"><a href="#page-top">Start Bookify</a>
+            <?php
+            if (isset($_SESSION['user_image'])) {
+                echo '<img src="' . $_SESSION['user_image'] . '" alt="User Image" class="user-image" />';
+            }
+            ?>
+        </li>
             <li class="sidebar-nav-item"><a href="#page-top">Home</a></li>
             <li class="sidebar-nav-item"><a href="#about">About</a></li>
             <li class="sidebar-nav-item"><a href="#services">Services</a></li>

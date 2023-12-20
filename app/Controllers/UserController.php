@@ -1,26 +1,32 @@
 <?php
 
 namespace MyApp\Controllers;
+
 require '../../vendor/autoload.php';
+
 use MyApp\Models\User;
 
 class UserController
 {
     public function register($firstname, $lastname, $email, $phone, $password, $image)
     {
-        $user = new User('',$firstname, $lastname, $phone, $email, $password, $image);
+        $user = new User('', $firstname, $lastname, $phone, $email, $password, $image);
         if ($user->createUser()) {
             $this->redirect(2);
         } else {
-            echo "error adding user";
+            echo "Error adding user";
         }
     }
 
-    public function login($email, $password)
+    public function login(User $user, $email, $password)
     {
-        $user = new User('','', '', $email, '', $password, '');
+        $user->setEmail($email);
+        $user->setPassword($password);
+
         if ($user->getByEmail()) {
             $this->redirect($_SESSION['role']);
+        } else {
+            echo "Incorrect email or password";
         }
     }
 
@@ -40,3 +46,4 @@ class UserController
     }
 }
 
+?>

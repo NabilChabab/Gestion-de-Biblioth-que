@@ -1,6 +1,7 @@
 <?php
 namespace MyApp\Models;
 require '../../vendor/autoload.php';
+session_start();
 use MyApp\Database\Database;
 use PDO;
 use PDOException;
@@ -74,6 +75,7 @@ class User
                 $resultRole = $stmtRole->execute();
 
                 if ($resultRole) {
+                    $_SESSION['user_image'] = $image;
                     return true;
                 } else {
                     echo "Error adding user role";
