@@ -14,7 +14,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
-<body class="bg-dark">
+<body class="bg-warning">
   <section class="background-radial-gradient overflow-hidden">
     <style>
       
@@ -23,7 +23,7 @@
         width: 220px;
         top: -60px;
         left: -130px;
-        background: radial-gradient(#44006b, #ad1fff);
+        background: radial-gradient(#1D809F, #1D809F);
         overflow: hidden;
       }
 
@@ -33,7 +33,7 @@
         right: -110px;
         width: 300px;
         height: 300px;
-        background: radial-gradient(#44006b, #ad1fff);
+        background: radial-gradient(#1D809F, #1D809F);
         overflow: hidden;
       }
 
@@ -74,10 +74,10 @@
       <div class="row gx-lg-5 align-items-center mb-5">
         <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10">
           <h1 class="my-5 display-5 fw-bold ls-tight" style="color: hsl(218, 81%, 95%)">
-            Happy Marionette <br />
-            <span style="color: hsl(218, 81%, 75%)">All on One Platform</span>
+            Welcome To Bookify <br />
+            <span style="color: gray">All on One Platform</span>
           </h1>
-          <p class="mb-4 opacity-70" style="color: hsl(218, 81%, 85%)">
+          <p class="mb-4 opacity-70" style="color: gray">
             Lorem ipsum dolor, sit amet consectetur adipisicing elit.
             Temporibus, expedita iusto veniam atque, magni tempora mollitia
             dolorum consequatur nulla, neque debitis eos reprehenderit quasi

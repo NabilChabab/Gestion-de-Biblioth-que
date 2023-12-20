@@ -34,6 +34,8 @@ class BookController
                 $result = $bookModel->addBook($title, $author, $genre, $desc, $publicationYear, $totalCopies, $availableCopies, $coverImagePath);
 
                 if ($result) {
+                    $newAvailableCopies = max(0, $availableCopies - 1);
+                    $bookModel->updateAvailableCopies($result, $newAvailableCopies);
                     header('Location: ../../Views/admin/books.php');
                     exit(); 
                 } else {

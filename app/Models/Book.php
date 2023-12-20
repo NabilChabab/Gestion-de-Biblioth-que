@@ -49,5 +49,17 @@ class Book
     }
 }
 
+public function updateAvailableCopies($bookId, $newAvailableCopies) {
+    try {
+        $query = "UPDATE `book` SET `available_copies` = :availableCopies WHERE `id` = :bookId";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':availableCopies', $newAvailableCopies);
+        $stmt->bindParam(':bookId', $bookId);
+        return $stmt->execute();
+    } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
+        return false;
+    }
+}
 
 }

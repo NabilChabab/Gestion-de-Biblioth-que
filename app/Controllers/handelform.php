@@ -3,8 +3,9 @@
 require '../../vendor/autoload.php';
 use MyApp\Models\User;
 use MyApp\Controllers\UserController;
+use MyApp\Models\Reservation;
 use MyApp\Models\Book;
-use MyApp\Controllers\BookController;
+
 session_start();
 
 if (isset($_POST['register'])) {
@@ -43,4 +44,30 @@ if (isset($_POST['login'])) {
     } else {
         echo "Login failed. Please check your credentials.";
     }
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reserve'])) {
+
+    $bookId = $_POST['bookId'];
+    $returnDate = $_POST['returnDate'];
+
+    if (isset($_SESSION['user_id'])) {
+        $userId = $_SESSION['user_id'];
+
+        $description = 'Reserved'; 
+
+        $reservationModel = new Reservation();
+        $result = $reservationModel->createReservation($userId, $bookId, $description, date('Y-m-d'), $returnDate);
+
+        if ($result) {
+            header('Location: ../../Views/users/index.php');
+            exit();
+        } else {
+            echo "Error creating reservation";
+        }
+    } else {
+        echo "User not logged in";
+    }
+} else {
+    echo "Invalid request";
 }

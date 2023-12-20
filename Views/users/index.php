@@ -23,6 +23,8 @@ session_start();
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Font Awesome icons (free version)-->
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
     <!-- Simple line icons-->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.5.5/css/simple-line-icons.min.css"
         rel="stylesheet" />
@@ -34,12 +36,13 @@ session_start();
 
 
     <style>
-        .card-img-top{
+        .card-img-top {
             width: 100%;
             height: 300px;
             object-fit: cover;
         }
-        .user-image{
+
+        .user-image {
             width: 45px;
             height: 45px;
             border-radius: 50%;
@@ -54,12 +57,12 @@ session_start();
     <nav id="sidebar-wrapper">
         <ul class="sidebar-nav">
             <li class="sidebar-brand">
-            <?php
-            if (isset($_SESSION['user_image'])) {
-                echo '<img src="' . $_SESSION['user_image'] . '" alt="User Image" class="user-image" />';
-            }
-            ?><a href="#page-top">Start Bookify</a>
-        </li>
+                <?php
+                if (isset($_SESSION['user_image'])) {
+                    echo '<img src="' . $_SESSION['user_image'] . '" alt="User Image" class="user-image" />';
+                }
+                ?><a href="#page-top">Start Bookify</a>
+            </li>
             <li class="sidebar-nav-item"><a href="#page-top">Home</a></li>
             <li class="sidebar-nav-item"><a href="#about">About</a></li>
             <li class="sidebar-nav-item"><a href="#services">Services</a></li>
@@ -93,51 +96,56 @@ session_start();
         </div>
     </section>
 
-    <div class="modal fade" id="reservationModal" tabindex="-1" aria-labelledby="reservationModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="reservationModalLabel">Book Reservation</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <!-- Add your reservation form here -->
-                <form id="reservationForm">
-                    <!-- Include input fields for return date and other details -->
-                    <div class="mb-3">
-                        <label for="returnDate" class="form-label">Return Date</label>
-                        <input type="date" class="form-control" id="returnDate" name="returnDate" required>
+    <div class="modal fade" id="reservationModal" tabindex="-1" aria-labelledby="reservationModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="reservationModalLabel">Book Reservation</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="bookDetails">
                     </div>
-                    <!-- Add other input fields as needed -->
+                    <form id="reservationForm" action="../../app/Controllers/handelform.php" method="post">
+                    <input type="hidden" id="bookId" name="bookId" value="">
+                        <div class="mb-3">
+                            <label for="returnDate" class="form-label">Return Date</label>
+                            <input type="date" class="form-control" id="returnDate" name="returnDate" required>
+                        </div>
 
-                    <button type="submit" class="btn btn-primary">Submit Reservation</button>
-                </form>
+                        <button type="submit" class="btn btn-primary" name="reserve">Submit Reservation</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
     <!-- Services-->
     <section class="content-section bg-primary text-white text-center" id="services">
-    <div class="container-fluid d-flex justify-content-center align-items-center" style="">
-        <div class="row col-12" style="gap:2rem;">
-        <?php foreach ($books as $book): ?>
-                <div class="card" style="width: 21.2rem;">
-                    <img class="card-img-top" src="<?php echo $book['cover']; ?>" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title text-black"><?php echo $book['title']; ?></h5>
-                        <p class="card-text text-dark"><?php echo $book['description']; ?></p>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#reservationModal" data-book-id="<?php echo $book['id']; ?>">
-                            Book Now
-                        </button>
+        <div class="container-fluid d-flex justify-content-center align-items-center" style="">
+            <div class="row col-12" style="gap:2rem;">
+                <?php foreach ($books as $book): ?>
+                    <div class="card" style="width: 21.2rem;">
+                        <img class="card-img-top" src="<?php echo $book['cover']; ?>" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title text-black">
+                                <?php echo $book['title']; ?>
+                            </h5>
+                            <p class="card-text text-dark">
+                                <?php echo $book['description']; ?>
+                            </p>
+                            <button type="button" class="btn btn-primary reserve-btn" data-bs-toggle="modal"
+                                data-bs-target="#reservationModal" data-book-id="<?php echo $book['id']; ?>">
+                                Book Now
+                            </button>
+                        </div>
                     </div>
-                </div>
-            <?php endforeach; ?>
+                <?php endforeach; ?>
 
-           
+
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
 
     <!-- Callout-->
@@ -247,7 +255,32 @@ session_start();
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top"><i class="fas fa-angle-up"></i></a>
     <!-- Bootstrap core JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var reserveButtons = document.querySelectorAll('.reserve-btn');
+        var bookDetailsContainer = document.getElementById('bookDetails');
+        var bookIdInput = document.getElementById('bookId');
+        
+        reserveButtons.forEach(function (button) {
+            button.addEventListener('click', function (event) {
+                var bookId = event.currentTarget.dataset.bookId;
+                bookIdInput.value = bookId; 
+                
+                var bookDetails = <?php echo json_encode($books); ?>;
+                var selectedBook = bookDetails.find(function (book) {
+                    return book.id == bookId;
+                });
+                
+                bookDetailsContainer.innerHTML = `
+                <img src='${selectedBook.cover}' style="width:200px;height:300px;margin-left:25%;object-fit:cover;">
+                <h5>${selectedBook.title}</h5>
+                <p>${selectedBook.description}</p>
+                `;
+            });
+        });
+    });
+</script>
+
     <!-- Core theme JS-->
     <script src="js/scripts.js"></script>
 </body>

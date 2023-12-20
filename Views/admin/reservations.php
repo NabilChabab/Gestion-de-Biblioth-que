@@ -189,7 +189,7 @@ $users = $userModel->getReservations();
                                 echo '<td>' . htmlspecialchars($user['return_date']) . '</td>';
                                 echo '<td>' . htmlspecialchars($user['is_returned']) . '</td>';
                                 echo '<td>';
-                                echo '<a href="edit.php?id=' . base64_encode($user['id']) . '" style="color:black;font-size:20px;margin-right:20px"><ion-icon name="pencil-outline"></ion-icon></a>';
+                               
                                 echo '<a href="?id=' . base64_encode($user['id']) . '&delete" style="color:red;font-size:20px;"><ion-icon name="close-circle-outline"></ion-icon></a>';
                                 echo '</td>';
                                 echo '</tr>';

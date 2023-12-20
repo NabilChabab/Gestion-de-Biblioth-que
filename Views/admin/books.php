@@ -184,14 +184,14 @@ $books = $bookModel->getAllBooks();
                             <?php
                             foreach ($books as $book) {
                                 echo '<tr>';
-                                echo '<td><img src="' . htmlspecialchars($book['cover']) . '" alt="Cover" style="max-width:45px;height:45px;border-radius:10%;"></td>';
-                                echo '<td>' . htmlspecialchars($book['title']) . '</td>';
-                                echo '<td>' . htmlspecialchars($book['author']) . '</td>';
-                                echo '<td>' . htmlspecialchars($book['genre']) . '</td>';
-                                echo '<td>' . htmlspecialchars($book['description']) . '</td>';
-                                echo '<td>' . htmlspecialchars($book['publication_year']) . '</td>';
-                                echo '<td>' . htmlspecialchars($book['total_copies']) . '</td>';
-                                echo '<td>' . htmlspecialchars($book['available_copies']) . '</td>';
+                                echo '<td><img src="' . $book['cover'] . '" alt="Cover" style="max-width:45px;height:45px;border-radius:10%;"></td>';
+                                echo '<td>' . $book['title'] . '</td>';
+                                echo '<td>' . $book['author'] . '</td>';
+                                echo '<td>' . $book['genre'] . '</td>';
+                                echo '<td>' . (strlen($book['description']) > 20 ? substr($book['description'], 0, 20) . '....' : $book['description']) . '</td>';
+                                echo '<td>' . $book['publication_year'] . '</td>';
+                                echo '<td>' . $book['total_copies'] . '</td>';
+                                echo '<td>' . $book['available_copies'] . '</td>';
                                 echo '<td>';
                                 echo '<a href="edit.php?id=' . base64_encode($book['id']) . '" style="color:black;font-size:20px;margin-right:20px"><ion-icon name="pencil-outline"></ion-icon></a>';
                                 echo '<a href="?id=' . base64_encode($book['id']) . '&delete" style="color:red;font-size:20px;"><ion-icon name="close-circle-outline"></ion-icon></a>';

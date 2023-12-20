@@ -75,7 +75,6 @@ class User
                 $resultRole = $stmtRole->execute();
 
                 if ($resultRole) {
-                    $_SESSION['user_image'] = $image;
                     return true;
                 } else {
                     echo "Error adding user role";
