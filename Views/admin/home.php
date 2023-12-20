@@ -96,7 +96,7 @@ $users = $userModel->getAllUsers();
 
                 <div class="admin">
                     <div class="user">
-                        <img src="../../assets/images/me.jpg" alt="">
+                        <img src="<?=$_SESSION['user_image']?>" alt="">
                     </div>
                     <div class="name">
                         <p>

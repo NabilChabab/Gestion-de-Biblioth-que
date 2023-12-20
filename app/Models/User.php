@@ -214,6 +214,8 @@ class User
 
         if (password_verify($password, $row['password'])) {
             $_SESSION['role'] = $row['role_id'];
+            $_SESSION['user_image'] = $row['image'];
+            $_SESSION['user_id'] = $row['id'];
             return true;
         } else {
             echo "Incorrect password";

@@ -3,6 +3,7 @@
 namespace MyApp\Controllers;
 require '../../vendor/autoload.php';
 use MyApp\Models\Book;
+use MyApp\Models\User;
 
 class BookController
 {

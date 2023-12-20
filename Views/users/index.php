@@ -2,9 +2,12 @@
 require '../../vendor/autoload.php';
 use MyApp\Models\Book;
 
+
 $bookModel = new Book();
 $books = $bookModel->getAllBooks();
 session_start();
+
+
 ?>
 
 <!DOCTYPE html>
@@ -36,6 +39,12 @@ session_start();
             height: 300px;
             object-fit: cover;
         }
+        .user-image{
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
     </style>
 </head>
 
@@ -44,12 +53,12 @@ session_start();
     <a class="menu-toggle rounded" href="#"><i class="fas fa-bars"></i></a>
     <nav id="sidebar-wrapper">
         <ul class="sidebar-nav">
-            <li class="sidebar-brand"><a href="#page-top">Start Bookify</a>
+            <li class="sidebar-brand">
             <?php
             if (isset($_SESSION['user_image'])) {
                 echo '<img src="' . $_SESSION['user_image'] . '" alt="User Image" class="user-image" />';
             }
-            ?>
+            ?><a href="#page-top">Start Bookify</a>
         </li>
             <li class="sidebar-nav-item"><a href="#page-top">Home</a></li>
             <li class="sidebar-nav-item"><a href="#about">About</a></li>
@@ -84,19 +93,43 @@ session_start();
         </div>
     </section>
 
-    <section>
-    </section>
+    <div class="modal fade" id="reservationModal" tabindex="-1" aria-labelledby="reservationModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="reservationModalLabel">Book Reservation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Add your reservation form here -->
+                <form id="reservationForm">
+                    <!-- Include input fields for return date and other details -->
+                    <div class="mb-3">
+                        <label for="returnDate" class="form-label">Return Date</label>
+                        <input type="date" class="form-control" id="returnDate" name="returnDate" required>
+                    </div>
+                    <!-- Add other input fields as needed -->
+
+                    <button type="submit" class="btn btn-primary">Submit Reservation</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
     <!-- Services-->
     <section class="content-section bg-primary text-white text-center" id="services">
     <div class="container-fluid d-flex justify-content-center align-items-center" style="">
         <div class="row col-12" style="gap:2rem;">
         <?php foreach ($books as $book): ?>
-                <div class="card" style="width: 20rem;">
+                <div class="card" style="width: 21.2rem;">
                     <img class="card-img-top" src="<?php echo $book['cover']; ?>" alt="Card image cap">
                     <div class="card-body">
                         <h5 class="card-title text-black"><?php echo $book['title']; ?></h5>
                         <p class="card-text text-dark"><?php echo $book['description']; ?></p>
-                        <a href="#" class="btn btn-primary">Book Now</a>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#reservationModal" data-book-id="<?php echo $book['id']; ?>">
+                            Book Now
+                        </button>
                     </div>
                 </div>
             <?php endforeach; ?>

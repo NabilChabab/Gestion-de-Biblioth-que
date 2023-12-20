@@ -1,7 +1,7 @@
 <?php
 require '../../vendor/autoload.php';
 use MyApp\Models\Book;
-
+session_start();
 $bookModel = new Book();
 $books = $bookModel->getAllBooks();
 ?>
@@ -96,7 +96,7 @@ $books = $bookModel->getAllBooks();
 
                 <div class="admin">
                     <div class="user">
-                        <img src="../../assets/images/me.jpg" alt="">
+                        <img src="<?=$_SESSION['user_image']?>" alt="">
                     </div>
                     <div class="name">
                         <p>
