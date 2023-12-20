@@ -1,7 +1,8 @@
 <?php
 require '../../vendor/autoload.php';
 use MyApp\Models\User;
-$userModel = new User('','', '', '', '', '', '');
+
+$userModel = new User('', '', '', '', '', '', '');
 $users = $userModel->getReservations();
 ?>
 <!DOCTYPE html>
@@ -45,7 +46,7 @@ $users = $userModel->getReservations();
                 <li>
                     <a href="home.php">
                         <span class="icon">
-                            <ion-icon name="home-outline"></ion-icon>
+                        <ion-icon name="people-outline"></ion-icon>
                         </span>
                         <span class="title">Users</span>
                     </a>
@@ -63,8 +64,7 @@ $users = $userModel->getReservations();
                 <li class="active">
                     <a href="#">
                         <span class="icon">
-                            <ion-icon name="book-outline"></ion-icon>
-                        </span>
+                            <ion-icon name="checkmark-outline"></ion-icon> </span>
                         <span class="title">Reserved Books</span>
                     </a>
                 </li>
@@ -167,7 +167,7 @@ $users = $userModel->getReservations();
                     <table id="userTable">
                         <thead>
                             <tr>
-                            <td>User</td>
+                                <td>User</td>
                                 <td>BookName</td>
                                 <td>Description</td>
                                 <td>Reservation Date</td>

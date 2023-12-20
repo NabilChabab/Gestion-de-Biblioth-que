@@ -39,14 +39,14 @@ $books = $bookModel->getAllBooks();
                         <span class="icon">
                             <ion-icon name="book-outline"></ion-icon>
                         </span>
-                        <span class="title">Happy-marionnette</span>
+                        <span class="title">Bookify</span>
                     </a>
                 </li>
 
                 <li>
                     <a href="home.php">
                         <span class="icon">
-                            <ion-icon name="home-outline"></ion-icon>
+                        <ion-icon name="people-outline"></ion-icon>
                         </span>
                         <span class="title">Users</span>
                     </a>
@@ -64,8 +64,7 @@ $books = $bookModel->getAllBooks();
                 <li>
                     <a href="reservations.php">
                         <span class="icon">
-                            <ion-icon name="book-outline"></ion-icon>
-                        </span>
+                            <ion-icon name="checkmark-outline"></ion-icon> </span>
                         <span class="title">Reserved Books</span>
                     </a>
                 </li>
@@ -161,7 +160,7 @@ $books = $bookModel->getAllBooks();
             <div class="details">
                 <div class="recentOrders">
                     <div class="cardHeader">
-                        <h2>Recent Reservation</h2>
+                        <h2>Recent Books</h2>
                         <a href="add.php" class="btn">Add New Book</a>
                     </div>
 
@@ -182,25 +181,25 @@ $books = $bookModel->getAllBooks();
                         </thead>
 
                         <tbody id="userTableBody">
-                    <?php
-                    foreach ($books as $book) {
-                        echo '<tr>';
-                        echo '<td><img src="' . htmlspecialchars($book['cover']) . '" alt="Cover" style="max-width:45px;height:45px;border-radius:10%;"></td>';
-                        echo '<td>' . htmlspecialchars($book['title']) . '</td>';
-                        echo '<td>' . htmlspecialchars($book['author']) . '</td>';
-                        echo '<td>' . htmlspecialchars($book['genre']) . '</td>';
-                        echo '<td>' . htmlspecialchars($book['description']) . '</td>';
-                        echo '<td>' . htmlspecialchars($book['publication_year']) . '</td>';
-                        echo '<td>' . htmlspecialchars($book['total_copies']) . '</td>';
-                        echo '<td>' . htmlspecialchars($book['available_copies']) . '</td>';
-                        echo '<td>';
-                        echo '<a href="edit.php?id=' . base64_encode($book['id']) . '" style="color:black;font-size:20px;margin-right:20px"><ion-icon name="pencil-outline"></ion-icon></a>';
+                            <?php
+                            foreach ($books as $book) {
+                                echo '<tr>';
+                                echo '<td><img src="' . htmlspecialchars($book['cover']) . '" alt="Cover" style="max-width:45px;height:45px;border-radius:10%;"></td>';
+                                echo '<td>' . htmlspecialchars($book['title']) . '</td>';
+                                echo '<td>' . htmlspecialchars($book['author']) . '</td>';
+                                echo '<td>' . htmlspecialchars($book['genre']) . '</td>';
+                                echo '<td>' . htmlspecialchars($book['description']) . '</td>';
+                                echo '<td>' . htmlspecialchars($book['publication_year']) . '</td>';
+                                echo '<td>' . htmlspecialchars($book['total_copies']) . '</td>';
+                                echo '<td>' . htmlspecialchars($book['available_copies']) . '</td>';
+                                echo '<td>';
+                                echo '<a href="edit.php?id=' . base64_encode($book['id']) . '" style="color:black;font-size:20px;margin-right:20px"><ion-icon name="pencil-outline"></ion-icon></a>';
                                 echo '<a href="?id=' . base64_encode($book['id']) . '&delete" style="color:red;font-size:20px;"><ion-icon name="close-circle-outline"></ion-icon></a>';
-                        echo '</td>';
-                        echo '</tr>';
-                    }
-                    ?>
-                </tbody>
+                                echo '</td>';
+                                echo '</tr>';
+                            }
+                            ?>
+                        </tbody>
                     </table>
                 </div>
 

@@ -45,7 +45,7 @@ $users = $userModel->getAllUsers();
                 <li class="active">
                     <a href="#">
                         <span class="icon">
-                            <ion-icon name="home-outline"></ion-icon>
+                        <ion-icon name="people-outline"></ion-icon>
                         </span>
                         <span class="title">Users</span>
                     </a>
@@ -63,7 +63,7 @@ $users = $userModel->getAllUsers();
                 <li>
                     <a href="reservations.php">
                         <span class="icon">
-                            <ion-icon name="book-outline"></ion-icon>
+                        <ion-icon name="checkmark-outline"></ion-icon>
                         </span>
                         <span class="title">Reserved Books</span>
                     </a>

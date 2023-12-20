@@ -1,3 +1,11 @@
+<?php
+require '../../vendor/autoload.php';
+use MyApp\Models\Book;
+
+$bookModel = new Book();
+$books = $bookModel->getAllBooks();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,6 +27,15 @@
         rel="stylesheet" type="text/css" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="css/styles.css" rel="stylesheet" />
+
+
+    <style>
+        .card-img-top{
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+    </style>
 </head>
 
 <body id="page-top">
@@ -64,39 +81,25 @@
     </section>
     <!-- Services-->
     <section class="content-section bg-primary text-white text-center" id="services">
-        <div class="container px-4 px-lg-5">
-            <div class="content-section-heading">
-                <h3 class="text-secondary mb-0">Services</h3>
-                <h2 class="mb-5">What We Offer</h2>
-            </div>
-            <div class="row gx-4 gx-lg-5">
-                <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
-                    <span class="service-icon rounded-circle mx-auto mb-3"><i class="icon-screen-smartphone"></i></span>
-                    <h4><strong>Responsive</strong></h4>
-                    <p class="text-faded mb-0">Looks great on any screen size!</p>
+    <div class="container-fluid d-flex justify-content-center align-items-center" style="">
+        <div class="row col-12" style="gap:2rem;">
+        <?php foreach ($books as $book): ?>
+                <div class="card" style="width: 20rem;">
+                    <img class="card-img-top" src="<?php echo $book['cover']; ?>" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title text-black"><?php echo $book['title']; ?></h5>
+                        <p class="card-text text-dark"><?php echo $book['description']; ?></p>
+                        <a href="#" class="btn btn-primary">Book Now</a>
+                    </div>
                 </div>
-                <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
-                    <span class="service-icon rounded-circle mx-auto mb-3"><i class="icon-pencil"></i></span>
-                    <h4><strong>Redesigned</strong></h4>
-                    <p class="text-faded mb-0">Freshly redesigned for Bootstrap 5.</p>
-                </div>
-                <div class="col-lg-3 col-md-6 mb-5 mb-md-0">
-                    <span class="service-icon rounded-circle mx-auto mb-3"><i class="icon-like"></i></span>
-                    <h4><strong>Favorited</strong></h4>
-                    <p class="text-faded mb-0">
-                        Millions of users
-                        <i class="fas fa-heart"></i>
-                        Start Bootstrap!
-                    </p>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <span class="service-icon rounded-circle mx-auto mb-3"><i class="icon-mustache"></i></span>
-                    <h4><strong>Question</strong></h4>
-                    <p class="text-faded mb-0">I mustache you a question...</p>
-                </div>
-            </div>
+            <?php endforeach; ?>
+
+           
         </div>
-    </section>
+    </div>
+</section>
+
+
     <!-- Callout-->
     <section class="callout">
         <div class="container px-4 px-lg-5 text-center">
