@@ -108,10 +108,13 @@ session_start();
                     <div id="bookDetails">
                     </div>
                     <form id="reservationForm" action="../../app/Controllers/handelform.php" method="post">
-                    <input type="hidden" id="bookId" name="bookId" value="">
+                        <input type="hidden" id="bookId" name="bookId" value="">
                         <div class="mb-3">
-                            <label for="returnDate" class="form-label">Return Date</label>
-                            <input type="date" class="form-control" id="returnDate" name="returnDate" required>
+                            <label for="returnDate" class="form-label">Return Date (Max:
+                                <?php echo date('Y-m-d', strtotime('+15 days')); ?>)
+                            </label>
+                            <input type="date" class="form-control" id="returnDate" name="returnDate" required
+                                max="<?php echo date('Y-m-d', strtotime('+15 days')); ?>">
                         </div>
 
                         <button type="submit" class="btn btn-primary" name="reserve">Submit Reservation</button>
@@ -121,8 +124,35 @@ session_start();
         </div>
     </div>
     <!-- Services-->
+    <div class="modal fade" id="reservationSuccessModal" tabindex="-1" aria-labelledby="reservationSuccessModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="reservationSuccessModalLabel">Reservation Successful</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Your reservation was successful! Thank you for choosing Bookify.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container px-4 px-lg-5 mb-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <form method="GET" action="">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Search by Title" name="search" id="searchInput" value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
     <section class="content-section bg-primary text-white text-center" id="services">
+        
         <div class="container-fluid d-flex justify-content-center align-items-center" style="">
+
             <div class="row col-12" style="gap:2rem;">
                 <?php foreach ($books as $book): ?>
                     <div class="card" style="width: 21.2rem;">
@@ -256,33 +286,46 @@ session_start();
     <a class="scroll-to-top rounded" href="#page-top"><i class="fas fa-angle-up"></i></a>
     <!-- Bootstrap core JS-->
     <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var reserveButtons = document.querySelectorAll('.reserve-btn');
-        var bookDetailsContainer = document.getElementById('bookDetails');
-        var bookIdInput = document.getElementById('bookId');
-        
-        reserveButtons.forEach(function (button) {
-            button.addEventListener('click', function (event) {
-                var bookId = event.currentTarget.dataset.bookId;
-                bookIdInput.value = bookId; 
-                
-                var bookDetails = <?php echo json_encode($books); ?>;
-                var selectedBook = bookDetails.find(function (book) {
-                    return book.id == bookId;
-                });
-                
-                bookDetailsContainer.innerHTML = `
+        document.addEventListener('DOMContentLoaded', function () {
+            var reserveButtons = document.querySelectorAll('.reserve-btn');
+            var bookDetailsContainer = document.getElementById('bookDetails');
+            var bookIdInput = document.getElementById('bookId');
+
+            reserveButtons.forEach(function (button) {
+                button.addEventListener('click', function (event) {
+                    var bookId = event.currentTarget.dataset.bookId;
+                    bookIdInput.value = bookId;
+
+                    var bookDetails = <?php echo json_encode($books); ?>;
+                    var selectedBook = bookDetails.find(function (book) {
+                        return book.id == bookId;
+                    });
+
+                    bookDetailsContainer.innerHTML = `
                 <img src='${selectedBook.cover}' style="width:200px;height:300px;margin-left:25%;object-fit:cover;">
                 <h5>${selectedBook.title}</h5>
                 <p>${selectedBook.description}</p>
                 `;
+                });
             });
         });
+
+        
+    </script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        <?php if (isset($_SESSION['reservation_success']) && $_SESSION['reservation_success']): ?>
+            var reservationSuccessModal = new bootstrap.Modal(document.getElementById('reservationSuccessModal'));
+            reservationSuccessModal.show();
+            <?php unset($_SESSION['reservation_success']); ?>
+        <?php endif; ?>
+
     });
 </script>
-
     <!-- Core theme JS-->
     <script src="js/scripts.js"></script>
+    <script src="js/filter.js"></script>
 </body>
 
 </html>

@@ -194,7 +194,7 @@ $books = $bookModel->getAllBooks();
                                 echo '<td>' . $book['available_copies'] . '</td>';
                                 echo '<td>';
                                 echo '<a href="edit.php?id=' . base64_encode($book['id']) . '" style="color:black;font-size:20px;margin-right:20px"><ion-icon name="pencil-outline"></ion-icon></a>';
-                                echo '<a href="?id=' . base64_encode($book['id']) . '&delete" style="color:red;font-size:20px;"><ion-icon name="close-circle-outline"></ion-icon></a>';
+                                echo '<a href="delete.php?id=' . base64_encode($book['id']) . '&delete" style="color:red;font-size:20px;"><ion-icon name="close-circle-outline"></ion-icon></a>';
                                 echo '</td>';
                                 echo '</tr>';
                             }

@@ -1,6 +1,7 @@
 <?php
 
 namespace MyApp\Controllers;
+
 require '../../vendor/autoload.php';
 use MyApp\Models\Book;
 use MyApp\Models\User;
@@ -31,25 +32,29 @@ class BookController
 
             if (move_uploaded_file($_FILES['cover']['tmp_name'], $coverImagePath)) {
                 $bookModel = new Book();
-                $result = $bookModel->addBook($title, $author, $genre, $desc, $publicationYear, $totalCopies, $availableCopies, $coverImagePath);
+                $result = $bookModel->addBook(
+                    $title,
+                    $author,
+                    $genre,
+                    $desc,
+                    $publicationYear,
+                    $totalCopies,
+                    $availableCopies,
+                    $coverImagePath
+                );
 
                 if ($result) {
-                    $newAvailableCopies = max(0, $availableCopies - 1);
-                    $bookModel->updateAvailableCopies($result, $newAvailableCopies);
                     header('Location: ../../Views/admin/books.php');
-                    exit(); 
+                    exit();
                 } else {
                     echo "Error adding book";
                 }
             } else {
                 echo "Error uploading cover image";
             }
-        } else {
-            include('path/to/your/book_form.php');
-        }
+        } 
     }
-
-    
 }
 $book = new BookController();
 $book->addBook();
+

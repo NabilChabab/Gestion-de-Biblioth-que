@@ -25,7 +25,19 @@ class Reservation
             $stmt->bindParam(':returnDate', $returnDate);
             $stmt->bindParam(':userId', $userId);
             $stmt->bindParam(':bookId', $bookId);
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+            return false;
+        }
+    }
 
+    public function deleteReservation($id) {
+        try {
+            $query = "DELETE FROM `reservation` WHERE `id` = :id";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':id', $id);
+    
             return $stmt->execute();
         } catch (PDOException $e) {
             echo "Error: " . $e->getMessage();

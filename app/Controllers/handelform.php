@@ -25,9 +25,9 @@ if (isset($_POST['login'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    $user = new User('','','','',$email,$password,'');
+    $user = new User('', '', '', '', $email, $password, '');
 
-    if ($user->getByEmail()>0) {
+    if ($user->getByEmail() > 0) {
 
         $role = $_SESSION['role'];
         switch ($role) {
@@ -46,28 +46,68 @@ if (isset($_POST['login'])) {
     }
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reserve'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['reserve'])) {
 
-    $bookId = $_POST['bookId'];
-    $returnDate = $_POST['returnDate'];
+        $bookId = $_POST['bookId'];
+        $returnDate = $_POST['returnDate'];
 
-    if (isset($_SESSION['user_id'])) {
-        $userId = $_SESSION['user_id'];
+        if (isset($_SESSION['user_id'])) {
+            $userId = $_SESSION['user_id'];
 
-        $description = 'Reserved'; 
+            $description = 'Reserved';
 
-        $reservationModel = new Reservation();
-        $result = $reservationModel->createReservation($userId, $bookId, $description, date('Y-m-d'), $returnDate);
+            $reservationModel = new Reservation();
+            $result = $reservationModel->createReservation($userId, $bookId, $description, date('Y-m-d'), $returnDate);
+
+            if ($result) {
+                $bookModel = new Book();
+                $currentAvailableCopies = $bookModel->getAvailableCopiesById($bookId);
+
+                if ($currentAvailableCopies > 0) {
+                    $newAvailableCopies = $currentAvailableCopies - 1;
+                    $bookModel->updateAvailableCopies($bookId, $newAvailableCopies);
+                    $_SESSION['reservation_success'] = true;
+                    header('Location: ../../Views/users/index.php?success');
+                    exit();
+                } else {
+                    echo "Error updating available copies: No available copies left.";
+                }
+            }
+        } else {
+            echo "User not logged in";
+        }
+    } elseif (isset($_POST['edit']) && isset($_GET['id'])) {
+        $bookId = $_GET['id'];
+        $title = $_POST['title'];
+        $genre = $_POST['genre'];
+        $author = $_POST['author'];
+        $desc = $_POST['description'];
+        $publicationYear = $_POST['publication'];
+        $totalCopies = $_POST['total_copies'];
+        $availableCopies = $_POST['available_copies'];
+
+
+        $bookModel = new Book();
+        $result = $bookModel->updateBook(
+            $bookId,
+            $title,
+            $author,
+            $genre,
+            $desc,
+            $publicationYear,
+            $totalCopies,
+            $availableCopies,
+        );
 
         if ($result) {
-            header('Location: ../../Views/users/index.php');
+            header('Location: ../../Views/admin/books.php');
             exit();
         } else {
-            echo "Error creating reservation";
+            echo "Error adding book";
         }
-    } else {
-        echo "User not logged in";
     }
 } else {
     echo "Invalid request";
+
 }

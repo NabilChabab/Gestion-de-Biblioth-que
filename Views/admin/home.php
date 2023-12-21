@@ -160,7 +160,7 @@ $users = $userModel->getAllUsers();
             <div class="details">
                 <div class="recentOrders">
                     <div class="cardHeader">
-                        <h2>Recent Reservation</h2>
+                        <h2>Recent Users</h2>
                         <a href="add_students.php" class="btn">View All</a>
                     </div>
 
