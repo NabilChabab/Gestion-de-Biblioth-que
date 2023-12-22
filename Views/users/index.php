@@ -1,12 +1,18 @@
 <?php
 require '../../vendor/autoload.php';
 use MyApp\Models\Book;
+use MyApp\Models\Reservation;
 
 
 $bookModel = new Book();
 $books = $bookModel->getAllBooks();
 session_start();
+if (isset($_SESSION['user_id'])) {
+    $userId = $_SESSION['user_id'];
 
+    $reservationModel = new Reservation();
+    $userReservations = $reservationModel->getUserReservations($userId);
+}
 
 ?>
 
@@ -123,34 +129,67 @@ session_start();
             </div>
         </div>
     </div>
-    <!-- Services-->
-    <div class="modal fade" id="reservationSuccessModal" tabindex="-1" aria-labelledby="reservationSuccessModalLabel"
-    aria-hidden="true">
+
+    <div class="modal fade" id="reservationsModal" tabindex="-1" aria-labelledby="reservationsModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="reservationSuccessModalLabel">Reservation Successful</h5>
+                <h5 class="modal-title" id="reservationsModalLabel">Your Reservations</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p>Your reservation was successful! Thank you for choosing Bookify.</p>
+                <?php foreach ($userReservations as $reservation): ?>
+                    <div class="reservation-item mb-3 p-3 border">
+                        <?php
+                        $bookId = $reservation['book_id'];
+                        $book = $bookModel->getBookById($bookId);
+
+                        if ($book): ?>
+                            <h6 class="mb-2"><strong>Book Title:</strong> <?php echo $book['title']; ?></h6>
+                        <?php else: ?>
+                            <p class="mb-2"><strong>Book Title:</strong> N/A</p>
+                        <?php endif; ?>
+                        <p class="mb-0"><strong>Return Date:</strong> <?php echo $reservation['return_date']; ?></p>
+                    </div>
+                <?php endforeach; ?>
             </div>
         </div>
     </div>
 </div>
-<div class="container px-4 px-lg-5 mb-4">
-    <div class="row justify-content-center">
-        <div class="col-lg-6">
-            <form method="GET" action="">
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Search by Title" name="search" id="searchInput" value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
+
+    <!-- Services-->
+    <div class="modal fade" id="reservationSuccessModal" tabindex="-1" aria-labelledby="reservationSuccessModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="reservationSuccessModalLabel">Reservation Successful</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-            </form>
+                <div class="modal-body">
+                    <p>Your reservation was successful! Thank you for choosing Bookify.</p>
+                </div>
+            </div>
         </div>
     </div>
-</div>
+    <div class="container px-4 px-lg-5 mb-4">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <form method="GET" action="">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Search by Title" name="search"
+                            id="searchInput"
+                            value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <section class="content-section bg-primary text-white text-center" id="services">
-        
+        <button class="btn btn-light rounded-circle" id="viewReservationsBtn"
+            style="position: fixed; top: 10px; left: 10px;">
+            <i class="fas fa-book"></i>
+        </button>
         <div class="container-fluid d-flex justify-content-center align-items-center" style="">
 
             <div class="row col-12" style="gap:2rem;">
@@ -310,19 +349,29 @@ session_start();
             });
         });
 
-        
+
     </script>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        <?php if (isset($_SESSION['reservation_success']) && $_SESSION['reservation_success']): ?>
-            var reservationSuccessModal = new bootstrap.Modal(document.getElementById('reservationSuccessModal'));
-            reservationSuccessModal.show();
-            <?php unset($_SESSION['reservation_success']); ?>
-        <?php endif; ?>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            <?php if (isset($_SESSION['reservation_success']) && $_SESSION['reservation_success']): ?>
+                var reservationSuccessModal = new bootstrap.Modal(document.getElementById('reservationSuccessModal'));
+                reservationSuccessModal.show();
+                <?php unset($_SESSION['reservation_success']); ?>
+            <?php endif; ?>
 
-    });
-</script>
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var viewReservationsBtn = document.getElementById('viewReservationsBtn');
+            viewReservationsBtn.addEventListener('click', function () {
+                var reservationsModal = new bootstrap.Modal(document.getElementById('reservationsModal'));
+                reservationsModal.show();
+            });
+        });
+    </script>
     <!-- Core theme JS-->
     <script src="js/scripts.js"></script>
     <script src="js/filter.js"></script>

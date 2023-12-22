@@ -192,7 +192,7 @@ $users = $userModel->getAllUsers();
                                 echo '<td>' . htmlspecialchars($user['name']) . '</td>';
                                 echo '<td>';
                                 echo '<a href="edit.php?id=' . base64_encode($user['id']) . '" style="color:black;font-size:20px;margin-right:20px"><ion-icon name="pencil-outline"></ion-icon></a>';
-                                echo '<a href="?id=' . base64_encode($user['id']) . '&delete" style="color:red;font-size:20px;"><ion-icon name="close-circle-outline"></ion-icon></a>';
+                                echo '<a href="delete.php?id=' . base64_encode($user['id']) . '&deleteuser" style="color:red;font-size:20px;"><ion-icon name="close-circle-outline"></ion-icon></a>';
                                 echo '</td>';
                                 echo '</tr>';
                             }

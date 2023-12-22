@@ -164,6 +164,19 @@ class User
         }
     }
 
+    public function deleteUser($id) {
+        try {
+            $query = "DELETE FROM `user` WHERE `id` = :id";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':id', $id);
+    
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+            return false;
+        }
+    }
+
     public function getReservations()
     {
         $userId = $this->getId();

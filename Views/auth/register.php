@@ -23,7 +23,7 @@
                 width: 220px;
                 top: -60px;
                 left: -130px;
-                background: radial-gradient(#44006b, #ad1fff);
+                background: radial-gradient(#1D809F, #1D809F);
                 overflow: hidden;
             }
 
@@ -33,7 +33,7 @@
                 right: -110px;
                 width: 300px;
                 height: 300px;
-                background: radial-gradient(#44006b, #ad1fff);
+                background: radial-gradient(#1D809F, #1D809F);
                 overflow: hidden;
             }
 
@@ -42,9 +42,7 @@
                 backdrop-filter: saturate(200%) blur(25px);
             }
 
-            .row {
-                margin-top: 5%;
-            }
+
 
             .error input {
                 border: 3px solid red;
@@ -106,10 +104,10 @@
             <div class="row gx-lg-5 align-items-center mb-5">
                 <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10">
                     <h1 class="my-5 display-5 fw-bold ls-tight" style="color: hsl(218, 81%, 95%)">
-                        Happy Marionette <br />
-                        <span style="color: hsl(218, 81%, 75%)">All on One Platform</span>
+                        Welcome To Bookify <br />
+                        <span style="color: gray">All on One Platform</span>
                     </h1>
-                    <p class="mb-4 opacity-70" style="color: hsl(218, 81%, 85%)">
+                    <p class="mb-4 opacity-70" style="color: gray">
                         Lorem ipsum dolor, sit amet consectetur adipisicing elit.
                         Temporibus, expedita iusto veniam atque, magni tempora mollitia
                         dolorum consequatur nulla, neque debitis eos reprehenderit quasi
@@ -123,11 +121,13 @@
 
                     <div class="card1 bg-glass">
                         <div class="card-body px-4 py-5 px-md-5">
-                        <form action="../../app/Controllers/handelform.php" enctype="multipart/form-data" method="POST">
+                            <form action="../../app/Controllers/handelform.php" enctype="multipart/form-data"
+                                method="POST">
                                 <div class="card">
                                     <img src="../../assets/images/profilephoto.jfif" alt="image" id="image">
                                     <label for="input-file">Choose Image</label>
-                                    <input type="file" accept="image/jpg, image/png, image/jpeg" name="image" style="background-color: transparent;" id="input-file">
+                                    <input type="file" accept="image/jpg, image/png, image/jpeg" name="image"
+                                        style="background-color: transparent;" id="input-file">
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
@@ -201,14 +201,14 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
-        <script>
-      let image = document.getElementById("image");
-      let input = document.getElementById("input-file");
+    <script>
+        let image = document.getElementById("image");
+        let input = document.getElementById("input-file");
 
-      input.onchange = () => {
-         image.src = URL.createObjectURL(input.files[0]);
-      }
-   </script>
+        input.onchange = () => {
+            image.src = URL.createObjectURL(input.files[0]);
+        }
+    </script>
 </body>
 
 
